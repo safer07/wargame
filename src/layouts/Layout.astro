@@ -1,0 +1,68 @@
+---
+import Navigation from "../components/Navigation.astro";
+import TableNavigation from "../components/Table_navigation.astro";
+import TableItem from "../components/Table_item.astro";
+const { pageTitle = "Без названия", allItems, categories } = Astro.props;
+// const allItems = await Astro.glob("../content/vehicle/tank/*/*.md");
+// const categories = [
+// 	"info",
+// 	"body",
+// 	"main_gun",
+// 	"atgm",
+// 	"autocannon",
+// 	"mmg",
+// 	"mmg2",
+// ];
+---
+
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- А это зачем? -->
+		<meta name="generator" content={Astro.generator} />
+		<title>Wargame: Red Dragon - статистика{pageTitle}</title>
+		<!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,500;1,400&display=swap"
+			rel="stylesheet"
+		/> -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+
+	<body class="max-h-[100dvh] px-2 py-2 gap-3">
+		<Navigation />
+		<h1>{pageTitle}</h1>
+		<div class="filterlist hidden gap-2 [&:has(button.chip-primary)]:flex"></div>
+
+		<section class="table2 relative flex overflow-auto">
+			<TableNavigation pageTitle={pageTitle} categories={categories} />
+			<ul class="flex">
+				{
+					allItems.map((item) => (
+						<TableItem
+							frontmatter={item.frontmatter}
+							pageTitle={pageTitle}
+							categories={categories}
+						/>
+					))
+				}
+			</ul>
+		</section>
+
+		<script src="../scripts/main.js" ;></script>
+		<script src="../scripts/coloring.js" ;></script>
+		<!-- <script>
+			import "../scripts/main.js";
+		</script> -->
+	</body>
+</html>

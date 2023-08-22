@@ -1,0 +1,16 @@
+---
+import Layout from "../layouts/Layout.astro";
+const pageTitle = "Танки";
+const allItems = await Astro.glob("../content/vehicle/tank/*/*.md");
+const categories = [
+	"info",
+	"body",
+	"main_gun",
+	"atgm",
+	"autocannon",
+	"mmg",
+	"mmg2",
+];
+---
+
+<Layout pageTitle={pageTitle} allItems={allItems} categories={categories} />

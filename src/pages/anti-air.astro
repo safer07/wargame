@@ -1,0 +1,13 @@
+---
+import Layout from "../layouts/Layout.astro";
+const pageTitle = "ПВО";
+const allItems = await Astro.glob("../content/vehicle/anti-air*/*/*.md");
+const categories = [
+	"info",
+	"body",
+	"sam",
+	"autocannon",
+];
+---
+
+<Layout pageTitle={pageTitle} allItems={allItems} categories={categories} />

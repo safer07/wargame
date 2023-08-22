@@ -1,0 +1,17 @@
+---
+import Layout from "../layouts/Layout.astro";
+const pageTitle = "Разведка: транспорт";
+const allItems = await Astro.glob("../content/vehicle/recon/*/*.md");
+const categories = [
+	"info",
+	"body",
+	"main_gun",
+	"atgm",
+	"autocannon",
+    "grenade_launcher",
+	"mmg",
+	"mmg2",
+];
+---
+
+<Layout pageTitle={pageTitle} allItems={allItems} categories={categories} />

@@ -1,0 +1,23 @@
+---
+import Layout from "../layouts/Layout.astro";
+const pageTitle = "Разведка: пехота";
+const scouts = await Astro.glob(
+	"../content/infantry/recon_squad/*/*.md"
+);
+const specialForce = await Astro.glob(
+	"../content/infantry/special_forces/*/*.md"
+);
+const allItems = [...scouts, ...specialForce];
+const categories = [
+    "info",
+    "body",
+    "assault_rifle",
+    "lmg",
+    "grenade_launcher",
+    "sniper_rifle",
+    "atgm",
+    "law",
+];
+---
+
+<Layout pageTitle={pageTitle} allItems={allItems} categories={categories} />

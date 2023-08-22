@@ -1,0 +1,12 @@
+---
+import Layout from "../layouts/Layout.astro";
+const pageTitle = "Припасы: вертолёт";
+const allItems = await Astro.glob("../content/helicopter/supply/*/*.md");
+const categories = [
+	"info",
+	"body",
+	"autocannon",
+];
+---
+
+<Layout pageTitle={pageTitle} allItems={allItems} categories={categories} />

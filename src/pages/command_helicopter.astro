@@ -1,0 +1,8 @@
+---
+import Layout from "../layouts/Layout.astro";
+const pageTitle = "КП: вертолёт";
+const allItems = await Astro.glob("../content/helicopter/command/*/*.md");
+const categories = ["info", "body", "mmg"];
+---
+
+<Layout pageTitle={pageTitle} allItems={allItems} categories={categories} />

@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+const pageTitle = "Разведка: вертолёт";
+const allItems = await Astro.glob("../content/helicopter/recon/*/*.md");
+const categories = [
+	"info",
+	"body",
+	"autocannon",
+	"grenade_launcher",
+	"mmg",
+	"atgm",
+	"anti_radar",
+	"rocket_pod",
+	"rocket_pod2",
+	"sam",
+];
+---
+
+<Layout pageTitle={pageTitle} allItems={allItems} categories={categories} />

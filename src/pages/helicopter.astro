@@ -1,0 +1,32 @@
+---
+import Layout from "../layouts/Layout.astro";
+const pageTitle = "Вертолёты";
+const antiAir = await Astro.glob("../content/helicopter/anti-air/*/*.md");
+const atgm = await Astro.glob("../content/helicopter/atgm/*/*.md");
+const command = await Astro.glob("../content/helicopter/command/*/*.md");
+const gunship = await Astro.glob("../content/helicopter/gunship/*/*.md");
+const recon = await Astro.glob("../content/helicopter/recon/*/*.md");
+const transport = await Astro.glob("../content/helicopter/transport/*/*.md");
+const allItems = [
+	...antiAir,
+	...atgm,
+	...command,
+	...gunship,
+	...recon,
+	...transport,
+];
+const categories = [
+	"info",
+	"body",
+	"autocannon",
+	"grenade_launcher",
+	"mmg",
+	"atgm",
+	"anti_radar",
+	"rocket_pod",
+	"rocket_pod2",
+	"sam",
+];
+---
+
+<Layout pageTitle={pageTitle} allItems={allItems} categories={categories} />

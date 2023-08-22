@@ -1,0 +1,13 @@
+---
+import Layout from "../layouts/Layout.astro";
+const pageTitle = "КП: пехота";
+const allItems = await Astro.glob("../content/infantry/command/*/*.md");
+const categories = [
+    "info",
+    "body",
+    "assault_rifle",
+    "lmg",
+];
+---
+
+<Layout pageTitle={pageTitle} allItems={allItems} categories={categories} />

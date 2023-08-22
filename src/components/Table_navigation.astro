@@ -1,0 +1,22 @@
+---
+import TableNavSection from "./Table_nav_section.astro";
+const { pageTitle, categories } = Astro.props;
+---
+
+{
+    categories.map((category) => (
+        <input class="hidden" id={category} type="checkbox" checked />
+    ))
+}
+
+<nav class="sticky left-0">
+    <div class="absolute z-[1]">
+        <div class="mt-[154px] flex flex-col">
+            {
+                categories.map((category) => (
+                    <TableNavSection pageTitle={pageTitle} category={category} />
+                ))
+            }
+        </div>
+    </div>
+</nav>

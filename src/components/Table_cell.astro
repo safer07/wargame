@@ -1,0 +1,43 @@
+---
+const { category, property, frontmatter } = Astro.props;
+
+let label =
+    frontmatter[category] && frontmatter[category][property] !== undefined
+        ? frontmatter[category][property]
+        : "–";
+
+if (label === true) label = "Да";
+
+let value = label;
+if (property === "size" && label === "Оч. мал.") value = 1;
+if (property === "size" && label === "Маленький") value = 2;
+if (property === "size" && label === "Средний") value = 3;
+if (property === "size" && label === "Большой") value = 4;
+if (property === "size" && label === "Оч. большой") value = 5;
+if (property === "training" && label === "") value = 1;
+if (property === "training" && label === "Бойцы") value = 2;
+if (property === "training" && label === "Штурмовики") value = 3;
+if (property === "training" && label === "Элита") value = 4;
+if (property === "stealth" && label === "Плохо") value = 1;
+if (property === "stealth" && label === "Средний") value = 2;
+if (property === "stealth" && label === "Хорошо") value = 3;
+if (property === "stealth" && label === "Оч. хорошо") value = 4;
+if (property === "stealth" && label === "Превосх.") value = 5;
+if (property === "optics" && label === "Оч. плохо") value = 1;
+if (property === "optics" && label === "Плохо") value = 2;
+if (property === "optics" && label === "Средний") value = 3;
+if (property === "optics" && label === "Хорошо") value = 4;
+if (property === "optics" && label === "Оч. хорошо") value = 5;
+if (property === "optics" && label === "Превосх.") value = 6;
+if (property === "air_detection" && label === "Хорошо") value = 1;
+if (property === "air_detection" && label === "Оч. хорошо") value = 2;
+if (property === "air_detection" && label === "Превосх.") value = 3;
+---
+
+<li
+    class="h-[92px] px-1 pt-1 pb-2 flex items-end border-b border-gray-600"
+    data-property={property}
+    data-value={value}
+>
+    {label}
+</li>

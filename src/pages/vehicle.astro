@@ -1,0 +1,32 @@
+---
+import Layout from "../layouts/Layout.astro";
+const pageTitle = "Транспорт";
+const fireSupport = await Astro.glob("../content/vehicle/fire_support/*/*.md");
+const flamethrower = await Astro.glob("../content/vehicle/flamethrower/*/*.md");
+const tankDestroyer = await Astro.glob(
+	"../content/vehicle/tank_destroyer/*/*.md"
+);
+const ifv = await Astro.glob("../content/vehicle/ifv/*/*.md");
+const apc = await Astro.glob("../content/vehicle/apc/*/*.md");
+const allItems = [
+	...fireSupport,
+	...flamethrower,
+	...tankDestroyer,
+	...ifv,
+	...apc,
+];
+const categories = [
+	"info",
+	"body",
+	"main_gun",
+	"atgm",
+	"autocannon",
+	"grenade_launcher",
+	"mmg",
+	"mmg2",
+	"mmg3",
+	"flamethrower",
+];
+---
+
+<Layout pageTitle={pageTitle} allItems={allItems} categories={categories} />

@@ -1,0 +1,22 @@
+---
+import Layout from "../layouts/Layout.astro";
+const pageTitle = "Самолёты";
+const allItems = await Astro.glob("../content/aircraft/*/*/*.md");
+const categories = [
+    "info",
+    "body",
+    "autocannon",
+    "agm",
+    "anti_radar",
+    "bomb",
+    "cluster_bomb",
+    "napalm_bomb",
+    "lgb",
+    "rocket_pod",
+    "aam",
+    "aam2",
+    "autocannon2",
+];
+---
+
+<Layout pageTitle={pageTitle} allItems={allItems} categories={categories} />

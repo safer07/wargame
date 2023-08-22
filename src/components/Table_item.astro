@@ -1,0 +1,27 @@
+---
+import TableSection from "./Table_section.astro";
+const { frontmatter, pageTitle, categories } = Astro.props;
+const name = frontmatter.info.name || "Без названия";
+const image = frontmatter.info.image || "";
+const cost = frontmatter.info.cost || "?";
+const country = frontmatter.info.country || "";
+---
+
+<li class="w-[200px] h-max flex flex-col gap-[60px] [&_ul:last-child]:pb-1">
+    <header
+        class="h-[154px] py-1 px-1 sticky top-0 z-20 row-start-1 bg-slate-950"
+    >
+        <div class="mb-1 relative">
+            <img class="w-18 h-[74px]" src={image} />
+            <div class="absolute top-0.5 right-0" data-flag={country}></div>
+            <span class="absolute right-0 bottom-0">{cost}</span>
+        </div>
+        <h5 class="text-lg">{name}</h5>
+    </header>
+
+    {
+        categories.map((category) => (
+            <TableSection frontmatter={frontmatter} pageTitle={pageTitle} category={category} />
+        ))
+    }
+</li>

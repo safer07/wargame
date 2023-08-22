@@ -1,0 +1,147 @@
+---
+const links = [
+    {
+        title: "Снабжение",
+        innerLinks: [
+            { url: "/command_infantry", title: "КП: пехота" },
+            { url: "/command_vehicle", title: "КП: транспорт" },
+            { url: "/command_helicopter", title: "КП: вертолёт" },
+            { url: "/supply_vehicle", title: "Припасы: транспорт" },
+            { url: "/supply_helicopter", title: "Припасы: вертолёт" },
+        ],
+    },
+    { url: "/infantry", title: "Пехота" },
+    {
+        title: "Поддержка",
+        innerLinks: [
+            { url: "/artillery", title: "Артиллерия" },
+            { url: "/anti-air", title: "ПВО" },
+        ],
+    },
+    { url: "/", title: "Танки" },
+    {
+        title: "Разведка",
+        innerLinks: [
+            { url: "/recon_infantry", title: "Пехота" },
+            { url: "/recon_vehicle", title: "Транспорт" },
+            { url: "/recon_helicopter", title: "Вертолёты" },
+        ],
+    },
+    { url: "/vehicle", title: "Транспорт" },
+    { url: "/helicopter", title: "Вертолёты" },
+    { url: "/aircraft", title: "Самолёты" },
+];
+---
+
+<nav class="dropdown flex gap-2">
+    {
+        links.map((link) => {
+            if (link.innerLinks) {
+                return (
+                    <div class="relative">
+                        <button
+                            type="button"
+                            class="group btn btn-secondary relative z-40 pr-[15px] cursor-default hover-hover:hover:text-white hover-hover:hover:border-white"
+                            aria-expanded="false"
+                        >
+                            {link.title}
+                            <div
+                                class="w-3 h-3 bg-[url('/img/icons/chevron_down_white.svg')] pointer-events-none group-aria-expanded:rotate-180 transition"
+                                aria-hidden="true"
+                            />
+                        </button>
+                        <div
+                            class="absolute top-full left-0 z-30 w-max transition -translate-y-3 data-[visible=false]:hidden data-[visible=true]:translate-y-0 data-[visible=true]:animate-slideInUp data-[visible=closing]:animate-slideOutUp"
+                            data-visible="false"
+                        >
+                            <div class="mt-1 p-1 flex flex-col gap-1 bg-slate-800/75 backdrop-blur-sm rounded-lg">
+                                {link.innerLinks.map((link) => (
+                                    <a
+                                        class="btn btn-secondary w-fit"
+                                        href={link.url}
+                                    >
+                                        {link.title}
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                );
+            } else {
+                return (
+                    <a class="btn btn-secondary relative z-40" href={link.url}>
+                        {link.title}
+                    </a>
+                );
+            }
+        })
+    }
+</nav>
+
+<script>
+    //
+    //
+    // Dropdown-menu
+    //
+    //
+
+    for (const button of document.querySelectorAll(".dropdown button")) {
+        // Открывать и закрывать при клике по кнопке, наведении мыши
+        const dropdownMenu = button.nextElementSibling;
+        button.onclick = () => {
+            if (dropdownMenu.dataset.visible === "false")
+                openNav(dropdownMenu, button);
+            else closeNav(dropdownMenu, button);
+        };
+        button.onmouseover = () => openNav(dropdownMenu, button);
+        button.onmouseout = ({ relatedTarget }) => {
+            if (relatedTarget !== dropdownMenu) closeNav(dropdownMenu, button);
+        };
+
+        function focusHandler({ relatedTarget }) {
+            // if ((dropdownMenu.dataset.visible = "closing"))
+            //     console.log("trololo");
+            if (
+                relatedTarget !== button &&
+                !relatedTarget.closest("[data-visible]")
+            )
+                closeNav(dropdownMenu, button);
+        }
+
+        function openNav(dropdownMenu, button) {
+            dropdownMenu.addEventListener("mouseout", focusHandler);
+            // Закрывать при табе по следующему элементу навигации
+            dropdownMenu.addEventListener("focusout", focusHandler);
+
+            dropdownMenu.dataset.visible = "true";
+            button.setAttribute("aria-expanded", true);
+
+            // Закрывать при клике по ссылке или за пределами окна, кроме #button
+            document.addEventListener("click", ({ target }) => {
+                if (
+                    dropdownMenu.dataset.visible === "true" &&
+                    target !== button && // у button свой обработчик
+                    (!dropdownMenu.contains(target) || target.closest("a")) // закрывать при клике по ссылке или за пределами окна
+                )
+                    closeNav(dropdownMenu, button);
+            });
+        }
+
+        function closeNav(dropdownMenu, button) {
+            dropdownMenu.removeEventListener("mouseout", focusHandler);
+            dropdownMenu.removeEventListener("focusout", focusHandler);
+
+            // Переходное состояние, ожидание анимации закрытия
+            dropdownMenu.dataset.visible = "closing";
+            dropdownMenu.addEventListener(
+                "animationend",
+                () => {
+                    // Действия после закрытия
+                    dropdownMenu.dataset.visible = "false";
+                    button.setAttribute("aria-expanded", false);
+                },
+                { once: true } // Закрыть EventListener по завершению, чтобы можно было повторно открыть меню
+            );
+        }
+    }
+</script>

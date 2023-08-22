@@ -1,0 +1,68 @@
+---
+import TableCell from "./Table_cell.astro";
+import categoryProperties from "../scripts/categoryProperties.js";
+import pageTypes from "../scripts/pageTypes.js";
+const { pageTitle, category, frontmatter } = Astro.props;
+const properties = [...categoryProperties[category]];
+
+if (pageTypes.vehicle.includes(pageTitle) && category === "body") {
+  properties.splice(
+    properties.indexOf("speed") + 1,
+    0,
+    "speed_road",
+    "amphibious",
+    "fuel",
+    "autonomy"
+  );
+}
+if (pageTypes.infantry.includes(pageTitle) && category === "body") {
+  properties.splice(properties.indexOf("hp") + 1, 0, "training");
+}
+if (pageTypes.helicopter.includes(pageTitle) && category === "body") {
+  properties.splice(properties.indexOf("speed") + 1, 0, "fuel", "autonomy");
+}
+if (pageTypes.aircraft.includes(pageTitle) && category === "body") {
+  properties.splice(properties.indexOf("size"), 1, "ecm");
+}
+if (pageTypes.aircraft.includes(pageTitle) && category === "body") {
+  properties.splice(
+    properties.indexOf("speed") + 1,
+    0,
+    "turn_radius",
+    "fuel",
+    "tot"
+  );
+}
+if (pageTypes.supply.includes(pageTitle) && category === "body") {
+  properties.splice(properties.indexOf("fuel"), 1, "supply");
+}
+if (
+  (pageTypes.antiAir.includes(pageTitle) ||
+    pageTypes.aircraft.includes(pageTitle)) &&
+  category === "body"
+) {
+  properties.splice(properties.indexOf("optics"), 1, "air_detection");
+}
+if (pageTypes.antiAir.includes(pageTitle) && category === "autocannon") {
+  properties.splice(properties.indexOf("attr_fg") + 1, 0, "attr_rls");
+}
+if (
+  (pageTypes.recon.includes(pageTitle) ||
+    pageTypes.supply.includes(pageTitle)) &&
+  category === "info"
+) {
+  properties.splice(properties.indexOf("class"), 1);
+}
+---
+
+<ul class={category}>
+  {
+    properties.map((property) => (
+      <TableCell
+        frontmatter={frontmatter}
+        category={category}
+        property={property}
+      />
+    ))
+  }
+</ul>

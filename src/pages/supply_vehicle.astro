@@ -1,0 +1,11 @@
+---
+import Layout from "../layouts/Layout.astro";
+const pageTitle = "Припасы: транспорт";
+const allItems = await Astro.glob("../content/vehicle/supply/*/*.md");
+const categories = [
+	"info",
+	"body",
+];
+---
+
+<Layout pageTitle={pageTitle} allItems={allItems} categories={categories} />
