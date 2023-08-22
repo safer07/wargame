@@ -7,7 +7,7 @@ export default defineConfig({
   integrations: [tailwind()],
   site: "https://safer07.github.io",
   base: "/wargame",
-  outDir: "./docs",
+  // outDir: "./docs",
 });
 
 // это настройка только для Git pages. нужно удалять параметр site и base, чтобы ссылки нормально работали
